@@ -1,5 +1,5 @@
 ---
-- name: Setup my Manjaro dev machine
+- name: Setup My Manjaro Dev Machine
   hosts: localhost
   roles:
   - kewlfft.aur
@@ -12,4 +12,7 @@
       aur:
         state: latest
         name: ferdi
-
+    - name: Install Microsoft Teams
+      aur:
+        state: latest
+        name: teams
