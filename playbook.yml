@@ -2,40 +2,71 @@
 - name: Setup My Manjaro Dev Machine
   hosts: localhost
   roles:
-  - kewlfft.aur
+    - kewlfft.aur
   tasks:
-    - name: Install ZSH
+    ### Shell Setup ###
+    - name: ZSH
       pacman:
         name: zsh
-    - name: Install Oh-My-Zsh
+    - name: Oh-My-Zsh
       shell:
         warn: no
         cmd: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         creates: /home/{{ ansible_user_id}}/.oh-my-zsh
-    - name: Install FZF
+    - name: FZF
       pacman:
         name: fzf
-    - name: Install Autojump
+    - name: Autojump
       pacman:
         name: autojump
-    - name: Enable Oh-My-Zsh Plugins
+    - name: Oh-My-Zsh Plugins
       replace:
         path: /home/{{ ansible_user_id }}/.zshrc
         regexp: '^plugins=\(git\)$'
-        replace: 'plugins=(git fzf autojump)'
+        replace: "plugins=(git fzf autojump)"
 
-    - name: Install Visual Studio Code
-      aur:
-        name: visual-studio-code-bin
-    - name: Install Ferdi
-      aur:
-        name: ferdi
-    - name: Install Microsoft Teams
-      aur:
-        name: teams
-    - name: Install NVM
+    ### Node & WebDev Tools ###
+    - name: NVM
       shell:
         warn: no
         cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | zsh
         creates: /home/{{ ansible_user_id }}/.nvm/nvm.sh
+    - name: Visual Studio Code
+      aur:
+        name: visual-studio-code-bin
+    - name: Ferdi
+      aur:
+        name: ferdi
+    - name: Microsoft Teams
+      aur:
+        name: teams
+    - name: Vivaldi
+      aur:
+        name: vivaldi
 
+    ### Docker ###
+    - name: Docker
+      pacman: 
+        name: docker
+    - name: Compose
+      pacman:
+        name: docker-compose
+
+    ### Vagrant ###
+    - name: Vagrant
+      pacman:
+        name: vagrant
+  
+    ### General Tools ###
+    - name: Autokey
+      aur:
+        name: autokey
+    - name: Virt-Manager
+      pacman:
+        name: virt-manager
+    - name: bat
+      pacman:
+        name: bat
+    - name: Guake
+      pacman:
+        name: guake
