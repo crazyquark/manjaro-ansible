@@ -42,7 +42,7 @@
     - name: Oh-My-Zsh
       shell:
         warn: no
-        cmd: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        cmd: wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
         creates: /home/{{ ansible_user_id}}/.oh-my-zsh
     - name: FZF
       become: yes
