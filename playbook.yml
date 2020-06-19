@@ -1,0 +1,15 @@
+---
+- name: Setup my Manjaro dev machine
+  hosts: localhost
+  roles:
+  - kewlfft.aur
+  tasks:
+    - name: Install Visual Studio Code
+      aur:
+        state: latest
+        name: visual-studio-code-bin
+    - name: Install Ferdi
+      aur:
+        state: latest
+        name: ferdi
+
