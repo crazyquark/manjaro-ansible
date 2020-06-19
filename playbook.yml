@@ -18,6 +18,12 @@
     - name: Install Autojump
       pacman:
         name: autojump
+    - name: Enable Oh-My-Zsh Plugins
+      replace:
+        path: /home/{{ ansible_user_id }}/.zshrc
+        regexp: '^plugins=\(git\)$'
+        replace: 'plugins=(git fzf autojump)'
+
     - name: Install Visual Studio Code
       aur:
         name: visual-studio-code-bin
