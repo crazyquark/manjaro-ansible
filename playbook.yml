@@ -7,6 +7,7 @@
     ### Shell Setup ###
     - name: ZSH
       pacman:
+        update_cache: true
         name: zsh
     - name: Oh-My-Zsh
       shell:
