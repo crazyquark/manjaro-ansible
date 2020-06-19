@@ -7,6 +7,17 @@
     - name: Install ZSH
       pacman:
         name: zsh
+    - name: Install Oh-My-Zsh
+      shell:
+        warn: no
+        cmd: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        creates: /home/{{ ansible_user_id}}/.oh-my-zsh
+    - name: Install FZF
+      pacman:
+        name: fzf
+    - name: Install Autojump
+      pacman:
+        name: autojump
     - name: Install Visual Studio Code
       aur:
         name: visual-studio-code-bin
@@ -21,8 +32,4 @@
         warn: no
         cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | zsh
         creates: /home/{{ ansible_user_id }}/.nvm/nvm.sh
-    - name: Install Oh-My-Zsh
-      shell:
-        warn: no
-        cmd: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        creates: /home/{{ ansible_user_id}}/.oh-my-zsh
+
