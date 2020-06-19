@@ -1,13 +1,21 @@
 ---
 - name: Setup My Manjaro Dev Machine
-  hosts: all
+  hosts: [localhost, all]
   roles:
     - kewlfft.aur
   tasks:
+    - name: Upgrade
+      become: yes
+      become_method: sudo
+      pacman:
+        upgrade: yes
+
     ### Shell Setup ###
     - name: ZSH
+      become: yes
+      become_method: sudo
       pacman:
-        update_cache: true
+        update_cache: yes
         name: zsh
     - name: Oh-My-Zsh
       shell:
@@ -15,9 +23,13 @@
         cmd: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         creates: /home/{{ ansible_user_id}}/.oh-my-zsh
     - name: FZF
+      become: yes
+      become_method: sudo
       pacman:
         name: fzf
     - name: Autojump
+      become: yes
+      become_method: sudo
       pacman:
         name: autojump
     - name: Oh-My-Zsh Plugins
@@ -47,14 +59,20 @@
 
     ### Docker ###
     - name: Docker
+      become: yes
+      become_method: sudo
       pacman:
         name: docker
     - name: Compose
+      become: yes
+      become_method: sudo
       pacman:
         name: docker-compose
 
     ### Vagrant ###
     - name: Vagrant
+      become: yes
+      become_method: sudo
       pacman:
         name: vagrant
 
@@ -63,12 +81,18 @@
       aur:
         name: autokey
     - name: Virt-Manager
+      become: yes
+      become_method: sudo
       pacman:
         name: virt-manager
     - name: bat
+      become: yes
+      become_method: sudo
       pacman:
         name: bat
     - name: Guake
+      become: yes
+      become_method: sudo
       pacman:
         name: guake
 
