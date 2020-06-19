@@ -4,15 +4,25 @@
   roles:
   - kewlfft.aur
   tasks:
+    - name: Install ZSH
+      pacman:
+        name: zsh
     - name: Install Visual Studio Code
       aur:
-        state: latest
         name: visual-studio-code-bin
     - name: Install Ferdi
       aur:
-        state: latest
         name: ferdi
     - name: Install Microsoft Teams
       aur:
-        state: latest
         name: teams
+    - name: Install NVM
+      shell:
+        warn: no
+        cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | zsh
+        creates: /home/{{ ansible_user_id }}/.nvm/nvm.sh
+    - name: Install Oh-My-Zsh
+      shell:
+        warn: no
+        cmd: sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        creates: /home/{{ ansible_user_id}}/.oh-my-zsh
