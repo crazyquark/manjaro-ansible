@@ -39,6 +39,12 @@
       pacman:
         update_cache: yes
         name: zsh
+    - name: Change Shell To ZSH 
+      become: yes
+      become_method: sudo
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: /bin/zsh
     - name: Oh-My-Zsh
       shell:
         warn: no
