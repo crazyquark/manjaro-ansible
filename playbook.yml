@@ -1,6 +1,6 @@
 ---
 - name: Setup My Manjaro Dev Machine
-  hosts: localhost
+  hosts: all
   roles:
     - kewlfft.aur
   tasks:
