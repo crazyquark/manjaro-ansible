@@ -46,7 +46,7 @@
 
     ### Docker ###
     - name: Docker
-      pacman: 
+      pacman:
         name: docker
     - name: Compose
       pacman:
@@ -56,7 +56,7 @@
     - name: Vagrant
       pacman:
         name: vagrant
-  
+
     ### General Tools ###
     - name: Autokey
       aur:
@@ -70,3 +70,12 @@
     - name: Guake
       pacman:
         name: guake
+
+    ### User Groups ###
+    - name: User Groups
+      user:
+        name: "{{ ansible_user_id }}"
+        groups: [libvirt, docker, uucp, kvm]
+        append: yes
+    - name: Reload Groups
+      meta: reset_connection
