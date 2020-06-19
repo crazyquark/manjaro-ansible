@@ -28,9 +28,7 @@
       pacman:
         name: fzf
     - name: Autojump
-      become: yes
-      become_method: sudo
-      pacman:
+      aur:
         name: autojump
     - name: Oh-My-Zsh Plugins
       replace:
