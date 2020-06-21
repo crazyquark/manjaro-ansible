@@ -52,6 +52,11 @@ Vagrant.configure("2") do |config|
     # Customize the amount of memory on the VM:
     vb.memory = "4096"
   end
+
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.host = "manjaro-ansible(on arch)"
+    libvirt.memory = "4096"
+  end
   
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"

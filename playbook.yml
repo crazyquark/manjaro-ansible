@@ -11,22 +11,22 @@
         upgrade: yes
   
     ### Basic Tools (Arch) ###
-    - name:
+    - name: Essential Tools(fakeroot)
       become: yes
       become_method: sudo
       pacman:
         name: fakeroot
-    - name:
+    - name: Essential Tools(gcc)
       become: yes
       become_method: sudo
       pacman:
         name: gcc
-    - name:
+    - name: Essential Tools(wget)
       become: yes
       become_method: sudo
       pacman:
         name: wget
-    - name:
+    - name: Essential Tools(git)
       become: yes
       become_method: sudo
       pacman:
