@@ -73,15 +73,6 @@
     - name: Visual Studio Code
       aur:
         name: visual-studio-code-bin
-    - name: Ferdi
-      aur:
-        name: ferdi
-    - name: Microsoft Teams
-      aur:
-        name: teams
-    - name: Vivaldi
-      aur:
-        name: vivaldi
 
     ### Docker ###
     - name: Docker
@@ -121,6 +112,17 @@
       become_method: sudo
       pacman:
         name: guake
+    
+    ### Communication ###
+    - name: Ferdi
+      aur:
+        name: ferdi
+    - name: Microsoft Teams
+      aur:
+        name: teams
+    - name: Vivaldi
+      aur:
+        name: vivaldi
 
     ### User Groups ###
     - name: User Groups

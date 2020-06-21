@@ -54,7 +54,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provider :libvirt do |libvirt|
-    libvirt.host = "manjaro-ansible(on arch)"
     libvirt.memory = "4096"
   end
   
