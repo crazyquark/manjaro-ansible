@@ -1,134 +1,101 @@
 ---
 - name: Setup My Manjaro Dev Machine
   hosts: [localhost, all]
-  roles:
-    - kewlfft.aur
   tasks:
     - name: Upgrade
-      become: yes
+      become: true
       become_method: sudo
       pacman:
-        upgrade: yes
-  
+        upgrade: true
+
     ### Basic Tools (Arch) ###
     - name: Essential Tools(fakeroot)
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: fakeroot
     - name: Essential Tools(gcc)
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: gcc
     - name: Essential Tools(wget)
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: wget
     - name: Essential Tools(git)
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: git
 
     ### Shell Setup ###
-    - name: ZSH
-      become: yes
-      become_method: sudo
-      pacman:
-        update_cache: yes
-        name: zsh
-    - name: Change Shell To ZSH 
-      become: yes
-      become_method: sudo
-      user:
-        name: "{{ ansible_user_id }}"
-        shell: /bin/zsh
-    - name: Oh-My-Zsh
-      shell:
-        warn: no
-        cmd: wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash
-        creates: /home/{{ ansible_user_id}}/.oh-my-zsh
-    - name: FZF
-      become: yes
-      become_method: sudo
-      pacman:
-        name: fzf
-    - name: Autojump
-      aur:
-        name: autojump
-    - name: Oh-My-Zsh Plugins
-      replace:
-        path: /home/{{ ansible_user_id }}/.zshrc
-        regexp: '^plugins=\(git\)$'
-        replace: "plugins=(git fzf autojump)"
 
     ### Node & WebDev Tools ###
     - name: NVM
-      shell:
-        warn: no
-        cmd: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | zsh
+      shell: |
+         wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+         echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
+         echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm' >> ~/.zshrc
+         echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion' >> ~/.zshrc
+
+      args:
         creates: /home/{{ ansible_user_id }}/.nvm/nvm.sh
     - name: Visual Studio Code
-      aur:
+      kewlfft.aur.aur:
         name: visual-studio-code-bin
 
     ### Docker ###
     - name: Docker
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: docker
     - name: Compose
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: docker-compose
 
     ### Vagrant ###
     - name: Vagrant
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: vagrant
 
     ### General Tools ###
-    - name: Autokey
-      aur:
-        name: autokey
+    - name: Espanso
+      kewlfft.aur.aur:
+        name: espanso-bin
     - name: Virt-Manager
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: virt-manager
     - name: bat
-      become: yes
+      become: true
       become_method: sudo
       pacman:
         name: bat
-    - name: Guake
-      become: yes
+    - name: Yakuake
+      become: true
       become_method: sudo
       pacman:
-        name: guake
-    
+        name: yakuake
+
     ### Communication ###
-    - name: Ferdi
-      aur:
-        name: ferdi
-    - name: Microsoft Teams
-      aur:
-        name: teams
-    - name: Vivaldi
-      aur:
-        name: vivaldi
+    - name: Ferdium
+      kewlfft.aur.aur:
+        name: ferdium-bin
 
     ### User Groups ###
     - name: User Groups
+      become: true
       user:
         name: "{{ ansible_user_id }}"
         groups: [libvirt, docker, uucp, kvm]
-        append: yes
+        append: true
     - name: Reload Groups
       meta: reset_connection
